@@ -1,4 +1,4 @@
-name: 'Terraform Plan and Apply'
+name: Terraform Plan and Apply
 
 on:
   push:
@@ -19,23 +19,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: Terraform Init
-      run: terraform init
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
 
-    - name: Terraform Plan
-      run: terraform plan -input=false -out=tfplan
+      - name: Terraform Init
+        run: terraform init
 
-    - name: Save Terraform Plan
-      uses: actions/upload-artifact@v2
-      with:
-        name: tfplan
-        path: tfplan
+      - name: Terraform Plan
+        run: terraform plan -input=false -out=tfplan
+
+      - name: Save Terraform Plan
+        uses: actions/upload-artifact@v2
+        with:
+          name: tfplan
+          path: tfplan
 
   terraform-apply:
     name: 'Terraform Apply'
@@ -43,20 +48,25 @@ jobs:
     needs: terraform-plan
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: Terraform Init
-      run: terraform init
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
 
-    - name: Download Terraform Plan
-      uses: actions/download-artifact@v2
-      with: 
-        name: tfplan
-        path: .
-    
-    - name: Terraform Apply
-      run: terraform apply -auto-approve
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Download Terraform Plan
+        uses: actions/download-artifact@v2
+        with: 
+          name: tfplan
+          path: .
+      
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
