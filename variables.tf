@@ -1,59 +1,52 @@
 variable "resource_group_name" {
-  description = "Name of the resource group."
+  type        = string
+  description = "the name of the resource group"
 }
 
-variable "location" {
-  description = "Location for all Azure resources."
+variable "resource_group_location" {
+  type        = string
+  description = "the location of the resource group"
 }
 
 variable "app_service_plan_name" {
-  description = "Name of the App Service Plan."
-}
-
-variable "app_service_plan_sku_tier" {
-  description = "SKU tier for the App Service Plan."
-}
-
-variable "app_service_plan_sku_size" {
-  description = "SKU size for the App Service Plan."
+  type        = string
+  description = "the name of the app servive plan"
 }
 
 variable "app_service_name" {
-  description = "Name of the App Service."
-}
-
-variable "dotnet_framework_version" {
-  description = "Version of .NET Framework to use."
-}
-
-variable "app_package_url" {
-  description = "URL of the packaged app to deploy."
+  type        = string
+  description = "the name of the service plan"
 }
 
 variable "sql_server_name" {
-  description = "Name of the SQL Server."
+  type        = string
+  description = "the sql server name "
 }
 
-variable "sql_server_version" {
-  description = "Version of SQL Server."
-}
-
-variable "sql_admin_username" {
-  description = "Admin username for the SQL Server."
-}
-
-variable "sql_admin_password" {
-  description = "Admin password for the SQL Server."
-}
 
 variable "sql_database_name" {
-  description = "Name of the SQL Database."
+  type        = string
+  description = "the name of the database"
 }
 
-variable "sql_database_edition" {
-  description = "Edition of the SQL Database."
+
+variable "sql_admin_login" {
+  type        = string
+  description = "the name of the resource group"
 }
 
-variable "sql_database_sku" {
-  description = "SKU of the SQL Database."
+
+variable "sql_admin_password" {
+  type        = string
+  description = "the name of the resource group"
+}
+
+variable "firewall_rule_name" {
+  type        = string
+  description = "the name of the firawall rule"
+}
+
+variable "repo_URL" {
+  type        = string
+  description = "the name of the github repo"
 }
